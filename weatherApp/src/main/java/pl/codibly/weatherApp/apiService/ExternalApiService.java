@@ -2,8 +2,10 @@ package pl.codibly.weatherApp.apiService;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import pl.codibly.weatherApp.DTO.WeatherResponse;
 import reactor.core.publisher.Mono;
+
 
 @Service
 public class ExternalApiService {
@@ -22,6 +24,16 @@ public class ExternalApiService {
                         .queryParam("daily", "weather_code,sunshine_duration,temperature_2m_max,temperature_2m_min")
                         .build())
                 .retrieve()
-                .bodyToMono(WeatherResponse.class);
+                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(), response -> {
+                    return Mono.error(new RuntimeException("Error during fetching: " + response.statusCode()));
+                })
+                .bodyToMono(WeatherResponse.class)
+                .onErrorMap(WebClientResponseException.class, e -> {
+                    return new RuntimeException("Webclient error: " + e.getMessage(), e);
+                })
+                .onErrorResume(e -> {
+                    return Mono.error(new RuntimeException("Unexpected error", e));
+                });
     }
+
 }

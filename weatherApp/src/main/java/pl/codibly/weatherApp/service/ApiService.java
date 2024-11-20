@@ -17,10 +17,22 @@ public class ApiService {
         this.externalApiService = externalApiService;
     }
 
+    private WeatherResponse getAndValidateResponse(double latitude, double longitude) {
+        WeatherResponse response = externalApiService.getWeatherForecast(latitude, longitude).block();
+
+        if (response == null || response.getDaily() == null || response.getHourly() == null) {
+            throw new RuntimeException("Fetched nullable data");
+        }
+
+        return response;
+    }
+
     private List<LocalDate> getDates(WeatherResponse response) {
-        return response.getDaily().getTime().stream()
+        return response
+                .getDaily()
+                .getTime().stream()
                 .map(LocalDate::parse)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private Double calculateEnergyProduction(int sunshineDuration) {
@@ -42,33 +54,45 @@ public class ApiService {
     }
 
     public Map<LocalDate, Map<String, Object>> getWeeklyForecast(double latitude, double longitude) {
-        WeatherResponse response = externalApiService.getWeatherForecast(latitude, longitude).block();
+        WeatherResponse response;
+        try {
+             response = getAndValidateResponse(latitude, longitude);
+        } catch (Exception e) {
+            throw new RuntimeException("Error fetching weather data from external API", e);
+        }
+
         List<LocalDate> dates = getDates(response);
 
         return dates.stream().collect(Collectors.toMap(
                 date -> date,
                 date -> {
                     int index = dates.indexOf(date);
+                    int weatherCode = response.getDaily().getWeatherCodes().get(index);
+                    int sunshineDuration = response.getDaily().getSunshineDuration().get(index).intValue();
+
                     Map<String, Object> dailyData = new HashMap<>();
                     dailyData.put("Min temperature", response.getDaily().getMinTemperature().get(index));
                     dailyData.put("Max temperature", response.getDaily().getMaxTemperature().get(index));
-                    int weatherCode = response.getDaily().getWeatherCodes().get(index);
                     dailyData.put("Weather code", weatherCode + " " + WeatherCode.getDescriptionByCode(weatherCode));
-                    int sunshineDuration = response.getDaily().getSunshineDuration().get(index).intValue();
-                    dailyData.put("Energy produced", calculateEnergyProduction(sunshineDuration) + " kWh");
+                    dailyData.put("Energy produced", String.format("%.2f h", calculateEnergyProduction(sunshineDuration)) + " kWh");
                     return dailyData;
                 }
         ));
     }
 
     public Map<String, Object> getWeeklySummary(double latitude, double longitude) {
-        WeatherResponse response = externalApiService.getWeatherForecast(latitude, longitude).block();
+        WeatherResponse response;
+        try {
+            response = getAndValidateResponse(latitude, longitude);
+        } catch (Exception e) {
+            throw new RuntimeException("Error fetching weather data from external API", e);
+        }
 
         List<Double> hourlyTemperatures = response.getHourly().getTemperature();
         List<Double> dailySunshineDurations = response.getDaily().getSunshineDuration();
 
         Map<String, Object> result = new HashMap<>();
-        result.put("Average surface pressure", calculateAverage(response.getHourly().getSurface_pressure()) + " hPa");
+        result.put("Average surface pressure", String.format("%.2f h", calculateAverage(response.getHourly().getSurface_pressure())) + " hPa");
         result.put("Average sunshine duration", String.format("%.2f h", calculateAverage(dailySunshineDurations) / 36));
         result.put("Weekly minimum temperature", Collections.min(hourlyTemperatures));
         result.put("Weekly maximum temperature", Collections.max(hourlyTemperatures));
