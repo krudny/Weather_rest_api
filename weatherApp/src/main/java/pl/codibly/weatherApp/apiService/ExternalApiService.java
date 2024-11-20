@@ -19,7 +19,7 @@ public class ExternalApiService {
                         .queryParam("latitude", latitude)
                         .queryParam("longitude", longitude)
                         .queryParam("hourly", "temperature_2m")
-                        .queryParam("daily", "weather_code,sunshine_duration")
+                        .queryParam("daily", "weather_code,sunshine_duration,temperature_2m_max,temperature_2m_min")
                         .build())
                 .retrieve()
                 .bodyToMono(WeatherResponse.class);

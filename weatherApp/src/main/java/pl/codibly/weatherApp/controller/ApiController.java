@@ -6,6 +6,7 @@ import pl.codibly.weatherApp.apiService.ExternalApiService;
 import pl.codibly.weatherApp.service.ApiService;
 
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -18,7 +19,7 @@ public class ApiController {
     }
 
     @GetMapping("/weekly_forecast")
-    public Set<LocalDate> getWeeklyForecast() {
+    public Map<LocalDate, Map<String, Object>> getWeeklyForecast() {
         return apiService.getWeeklyForecast(52.52, 13.41);
     }
 }
