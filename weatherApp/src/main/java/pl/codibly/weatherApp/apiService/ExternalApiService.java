@@ -5,10 +5,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Service
-public class ApiService {
+public class ExternalApiService {
     private final WebClient webClient;
 
-    public ApiService(WebClient webClient) {
+    public ExternalApiService(WebClient webClient) {
         this.webClient = webClient;
     }
 
