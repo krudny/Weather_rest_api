@@ -73,8 +73,9 @@ public class ApiService {
                     Map<String, Object> dailyData = new HashMap<>();
                     dailyData.put("Min temperature", response.getDaily().getMinTemperature().get(index));
                     dailyData.put("Max temperature", response.getDaily().getMaxTemperature().get(index));
-                    dailyData.put("Weather code", weatherCode + " " + WeatherCode.getDescriptionByCode(weatherCode));
-                    dailyData.put("Energy produced", String.format("%.2f h", calculateEnergyProduction(sunshineDuration)) + " kWh");
+                    dailyData.put("Weather code", weatherCode);
+                    dailyData.put("Weather description", WeatherCode.getDescriptionByCode(weatherCode));
+                    dailyData.put("Energy produced", String.format("%.2f", calculateEnergyProduction(sunshineDuration)) + " kWh");
                     return dailyData;
                 }
         ));
@@ -92,7 +93,7 @@ public class ApiService {
         List<Double> dailySunshineDurations = response.getDaily().getSunshineDuration();
 
         Map<String, Object> result = new HashMap<>();
-        result.put("Average surface pressure", String.format("%.2f h", calculateAverage(response.getHourly().getSurface_pressure())) + " hPa");
+        result.put("Average surface pressure", String.format("%.2f", calculateAverage(response.getHourly().getSurface_pressure())) + " hPa");
         result.put("Average sunshine duration", String.format("%.2f h", calculateAverage(dailySunshineDurations) / 36));
         result.put("Weekly minimum temperature", Collections.min(hourlyTemperatures));
         result.put("Weekly maximum temperature", Collections.max(hourlyTemperatures));
