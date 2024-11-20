@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.codibly.weatherApp.apiService.ExternalApiService;
 import pl.codibly.weatherApp.service.ApiService;
 
+import java.time.LocalDate;
+import java.util.Set;
+
 @RestController
 public class ApiController {
 
@@ -15,7 +18,7 @@ public class ApiController {
     }
 
     @GetMapping("/weekly_forecast")
-    public String getWeeklyForecast() {
+    public Set<LocalDate> getWeeklyForecast() {
         return apiService.getWeeklyForecast(52.52, 13.41);
     }
 }

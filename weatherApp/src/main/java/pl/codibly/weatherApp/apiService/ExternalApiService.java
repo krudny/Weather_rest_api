@@ -2,6 +2,7 @@ package pl.codibly.weatherApp.apiService;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import pl.codibly.weatherApp.DTO.WeatherResponse;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -12,7 +13,7 @@ public class ExternalApiService {
         this.webClient = webClient;
     }
 
-    public Mono<String> getWeatherForecast(double latitude, double longitude) {
+    public Mono<WeatherResponse> getWeatherForecast(double latitude, double longitude) {
         return webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("latitude", latitude)
@@ -21,6 +22,6 @@ public class ExternalApiService {
                         .queryParam("daily", "weather_code,sunshine_duration")
                         .build())
                 .retrieve()
-                .bodyToMono(String.class);
+                .bodyToMono(WeatherResponse.class);
     }
 }
