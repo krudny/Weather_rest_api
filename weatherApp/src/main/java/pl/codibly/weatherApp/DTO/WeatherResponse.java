@@ -26,7 +26,10 @@ public class WeatherResponse {
         private List<String> time;
 
         @JsonProperty("temperature_2m")
-        private List<Double> temperature2m;
+        private List<Double> temperature;
+
+        @JsonProperty("surface_pressure")
+        private List<Double> surface_pressure;
 
     }
 
@@ -37,10 +40,10 @@ public class WeatherResponse {
         private List<String> time;
 
         @JsonProperty("weather_code")
-        private List<Integer> weatherCode;
+        private List<Integer> weatherCodes;
 
         @JsonProperty("sunshine_duration")
-        private List<Integer> sunshineDuration;
+        private List<Double> sunshineDuration;
 
         @JsonProperty("temperature_2m_max")
         private List<Double> minTemperature;

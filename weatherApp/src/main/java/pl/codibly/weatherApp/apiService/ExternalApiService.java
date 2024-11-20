@@ -18,7 +18,7 @@ public class ExternalApiService {
                 .uri(uriBuilder -> uriBuilder
                         .queryParam("latitude", latitude)
                         .queryParam("longitude", longitude)
-                        .queryParam("hourly", "temperature_2m")
+                        .queryParam("hourly", "temperature_2m,surface_pressure")
                         .queryParam("daily", "weather_code,sunshine_duration,temperature_2m_max,temperature_2m_min")
                         .build())
                 .retrieve()

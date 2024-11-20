@@ -22,4 +22,9 @@ public class ApiController {
     public Map<LocalDate, Map<String, Object>> getWeeklyForecast() {
         return apiService.getWeeklyForecast(52.52, 13.41);
     }
+
+    @GetMapping("/weekly_summary")
+    public Map<String, Object> getWeeklySummary() {
+        return apiService.getWeeklySummary(52.52, 13.41);
+    }
 }
