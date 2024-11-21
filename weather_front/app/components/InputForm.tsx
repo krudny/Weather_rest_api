@@ -21,8 +21,15 @@ export default function InputForm({
   const [longitudeInput, setLongitudeInput] = useState<number | null>(null);
 
   const handleFetchData = () => {
-    if (latitudeInput === null || longitudeInput === null) {
-      alert("Please enter both latitude and longitude.");
+    if (
+      latitudeInput === null ||
+      longitudeInput === null ||
+      latitudeInput < -90 ||
+      latitudeInput > 90 ||
+      longitudeInput < -180 ||
+      longitudeInput > 180
+    ) {
+      alert("Please enter proper latitude and longitude.");
       return;
     }
 

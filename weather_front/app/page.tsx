@@ -44,8 +44,8 @@ export default function Home() {
       <div className="w-full flex flex-col items-center justify-between my-2">
         <h1 className="text-lg">Weekly Forecast Service</h1>
         <p>
-          Your coords: ({latitude ?? "Fetching..."},
-          {longitude ?? "Fetching..."})
+          Your coords: ({latitude ?? "Fetching..."},{longitude ?? "Fetching..."}
+          )
         </p>
       </div>
 
