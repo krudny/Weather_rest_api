@@ -7,7 +7,7 @@ export default function SummaryFooter({
   summary: SummaryData | null;
 }) {
   if (!summary) {
-    return ;
+    return;
   }
 
   return (

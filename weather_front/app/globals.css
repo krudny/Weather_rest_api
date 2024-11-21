@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .td-styles {
-  @apply border border-gray-700 p-2;
+  @apply border border-gray-700 text-sm p-1 sm:p-2 sm:text-lg md:px-4;
 }

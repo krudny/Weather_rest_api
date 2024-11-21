@@ -2,8 +2,8 @@ import { ForecastData } from "@/app/interfaces/ForecastData";
 import { SummaryData } from "@/app/interfaces/SummaryData";
 
 export async function fetchData(
-  latitude: string,
-  longitude: string,
+  latitude: number,
+  longitude: number,
   setWeeklyForecast: (data: ForecastData | null) => void,
   setWeeklySummary: (data: SummaryData | null) => void,
 ) {

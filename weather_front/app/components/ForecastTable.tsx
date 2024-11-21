@@ -36,18 +36,18 @@ export default function ForecastTable({
   forecast: ForecastData | null;
 }) {
   if (!forecast) {
-    return ;
+    return;
   }
 
   return (
-    <div>
+    <div className="max-w-full">
       <p className="text-2xl my-7">Weekly Forecast</p>
-      <div className="w-100 flex justify-center items-center">
-        <table className="min-w-full border border-gray-700">
+      <div className="max-w-full flex justify-center items-center">
+        <table className="w-full border border-gray-700 ">
           <thead>
             <tr>
               {properties.map((property, index) => (
-                <th key={index} className="border border-gray-700 px-4 py-2">
+                <th key={index} className="td-styles">
                   {property}
                 </th>
               ))}
@@ -56,21 +56,15 @@ export default function ForecastTable({
           <tbody>
             {Object.entries(forecast).map(([date, dayData]) => (
               <tr key={date} className="text-center">
-                <td className="border border-gray-700 px-4 py-2">{date}</td>
-                <td className="border border-gray-700 px-4 py-2">
+                <td className="td-styles ">{date}</td>
+                <td className="td-styles">
                   <div className="flex justify-center">
                     {getWeatherIcon(dayData["Weather code"])}
                   </div>
                 </td>
-                <td className="border border-gray-700 px-4 py-2">
-                  {dayData["Max temperature"]}°C
-                </td>
-                <td className="border border-gray-700 px-4 py-2">
-                  {dayData["Min temperature"]}°C
-                </td>
-                <td className="border border-gray-700 px-4 py-2">
-                  {dayData["Energy produced"]}
-                </td>
+                <td className="td-styles">{dayData["Max temperature"]}°C</td>
+                <td className="td-styles">{dayData["Min temperature"]}°C</td>
+                <td className="td-styles">{dayData["Energy produced"]}</td>
               </tr>
             ))}
           </tbody>
