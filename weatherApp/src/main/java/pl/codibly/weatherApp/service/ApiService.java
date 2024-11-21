@@ -94,7 +94,7 @@ public class ApiService {
 
         Map<String, Object> result = new HashMap<>();
         result.put("Average surface pressure", String.format("%.2f", calculateAverage(response.getHourly().getSurface_pressure())) + " hPa");
-        result.put("Average sunshine duration", String.format("%.2f h", calculateAverage(dailySunshineDurations) / 36));
+        result.put("Average sunshine duration", String.format("%.2f h", calculateAverage(dailySunshineDurations) / 3600));
         result.put("Weekly minimum temperature", Collections.min(hourlyTemperatures));
         result.put("Weekly maximum temperature", Collections.max(hourlyTemperatures));
         result.put("Overall summary", checkRain(response.getDaily().getWeatherCodes()));
