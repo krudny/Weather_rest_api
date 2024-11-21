@@ -1,6 +1,12 @@
-import {FaCloudRain, FaSnowflake, FaSun, FaCloud, FaCloudSun} from "react-icons/fa";
+import {
+  FaCloudRain,
+  FaSnowflake,
+  FaSun,
+  FaCloud,
+  FaCloudSun,
+} from "react-icons/fa";
 import React from "react";
-import {ForecastData} from "@/app/interfaces/ForecastData";
+import { ForecastData } from "@/app/interfaces/ForecastData";
 
 const properties: string[] = [
   "Date",
@@ -24,43 +30,45 @@ const getWeatherIcon = (code: number) => {
   }
 };
 
-export default async function ForecastTable() {
-  const data2 = await fetch(
-    "http://localhost:8080/weekly_forecast?latitude=52.52&longitude=23.52",
-  );
-  const fetched_data:ForecastData = await data2.json();
+export default function ForecastTable({
+  forecast,
+}: {
+  forecast: ForecastData | null;
+}) {
+  if (!forecast) {
+    return ;
+  }
 
   return (
     <div>
-      <p className="text-2xl my-7">Weekly forecast</p>
+      <p className="text-2xl my-7">Weekly Forecast</p>
       <div className="w-100 flex justify-center items-center">
         <table className="min-w-full border border-gray-700">
           <thead>
             <tr>
               {properties.map((property, index) => (
-                <th key={index} className="border border-gray-700">
+                <th key={index} className="border border-gray-700 px-4 py-2">
                   {property}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {Object.entries(fetched_data).map(([date, dayData]) => (
-              <tr key={date} className="w-full items-center text-center">
-                <td className="border border-gray-700 p-2">{date}</td>
-                <td className="border border-gray-700 p-2">
-                  <div className="w-full h-full flex justify-center">
+            {Object.entries(forecast).map(([date, dayData]) => (
+              <tr key={date} className="text-center">
+                <td className="border border-gray-700 px-4 py-2">{date}</td>
+                <td className="border border-gray-700 px-4 py-2">
+                  <div className="flex justify-center">
                     {getWeatherIcon(dayData["Weather code"])}
                   </div>
-
                 </td>
-                <td className="border border-gray-700 p-2">
-                  {dayData["Max temperature"]}
+                <td className="border border-gray-700 px-4 py-2">
+                  {dayData["Max temperature"]}°C
                 </td>
-                <td className="border border-gray-700 p-2">
-                  {dayData["Min temperature"]}
+                <td className="border border-gray-700 px-4 py-2">
+                  {dayData["Min temperature"]}°C
                 </td>
-                <td className="border border-gray-700 p-2">
+                <td className="border border-gray-700 px-4 py-2">
                   {dayData["Energy produced"]}
                 </td>
               </tr>
