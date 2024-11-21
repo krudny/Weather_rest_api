@@ -17,7 +17,8 @@ Project is hosted [here](https://weather-front-sigma.vercel.app).
 1. **Weather Forecast**: 7 days weather forecast integrating with [OpenMeteo](open-meteo.com) api.
 2. **Weekly summary**: Application provides weekly summary based on averageing weather circumstances.
 3. **Geolocalization**: User is automatically localizated based on their connection. 
-4. **Design**: Clean, easy to use and responsive web design. 
+4. **Design**: Clean, easy to use and responsive web design.
+5. **Usability**: Application calculates average energy solar plane production based on sunlight duration.  
 
 ## Technologies
 
