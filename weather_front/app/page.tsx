@@ -55,7 +55,12 @@ export default function Home() {
         setWeeklyForecast={setWeeklyForecast}
         setWeeklySummary={setWeeklySummary}
       />
-      <ForecastTable forecast={weeklyForecast} />
+      {weeklyForecast ? <ForecastTable forecast={weeklyForecast} /> :
+          <div className="w-full flex justify-center mt-48">
+            Please allow geolocation and wait...
+          </div>
+      }
+
       <SummaryFooter summary={weeklySummary} />
     </div>
   );
