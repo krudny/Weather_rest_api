@@ -11,7 +11,7 @@ Project is hosted [here](https://weather-front-sigma.vercel.app).
 ## Key Features
 
 1. **Weather Forecast**: 7 days weather forecast integrating with [OpenMeteo](open-meteo.com) api.
-2. **Weekly summary**: Application provides weekly summary based on averageing weather curcimstaces.
+2. **Weekly summary**: Application provides weekly summary based on averageing weather circumstances.
 3. **Geolocalization**: User is automatically localizated based on their connection. 
 4. **Design**: Clean, easy to use and responsive web design. 
 
