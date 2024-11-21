@@ -9,13 +9,13 @@ export async function fetchData(
 ) {
   try {
     const forecastResponse = await fetch(
-      `http://localhost:8080/weekly_forecast?latitude=${latitude}&longitude=${longitude}`,
+      `https://weather-backend-465897916721.us-central1.run.app/weekly_forecast?latitude=${latitude}&longitude=${longitude}`,
     );
     const forecastData = await forecastResponse.json();
     setWeeklyForecast(forecastData);
 
     const summaryResponse = await fetch(
-      `http://localhost:8080/weekly_summary?latitude=${latitude}&longitude=${longitude}`,
+      `https://weather-backend-465897916721.us-central1.run.app/weekly_summary?latitude=${latitude}&longitude=${longitude}`,
     );
     const summaryData = await summaryResponse.json();
     setWeeklySummary(summaryData);
