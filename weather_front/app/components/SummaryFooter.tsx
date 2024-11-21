@@ -1,8 +1,10 @@
+import {SummaryData} from "@/app/interfaces/SummaryData";
+
 export default async function SummaryFooter() {
   const data = await fetch(
     "http://localhost:8080/weekly_summary?latitude=52.52&longitude=23.52",
   );
-  const fetched_data = await data.json();
+  const fetched_data:SummaryData = await data.json();
 
   console.log(fetched_data);
   return (
