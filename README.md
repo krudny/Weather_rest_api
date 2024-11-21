@@ -8,6 +8,10 @@
 
 Project is hosted [here](https://weather-front-sigma.vercel.app). 
 
+## Sample view
+
+![image](https://github.com/user-attachments/assets/a9887b4e-251a-4a78-842a-565785f1a1f7)
+
 ## Key Features
 
 1. **Weather Forecast**: 7 days weather forecast integrating with [OpenMeteo](open-meteo.com) api.
